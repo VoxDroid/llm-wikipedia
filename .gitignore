@@ -1,0 +1,7 @@
+*.pyc
+/.venv
+/wiki_dataset
+/data
+/wikipedia_model
+/fine_tuned_phi2
+cache-*.arrow
