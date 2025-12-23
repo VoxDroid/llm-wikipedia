@@ -5,4 +5,5 @@
 /wikipedia_model
 /fine_tuned_phi2
 /data_analysis
+/logs
 cache-*.arrow
