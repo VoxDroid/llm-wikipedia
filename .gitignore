@@ -6,4 +6,6 @@
 /fine_tuned_phi2
 /data_analysis
 /logs
+/grid_trials
+/evaluation_results.json
 cache-*.arrow
