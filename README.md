@@ -3,6 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Transformers-yellow.svg)](https://huggingface.co/)
+[![Model](https://img.shields.io/badge/🤗%20Model-iZELX1/llm--wikipedia-blue.svg)](https://huggingface.co/iZELX1/llm-wikipedia)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > **Personal Project**: This is a personal learning project I did in my free time for experimenting with LLM fine-tuning on local hardware. Not intended for production use or commercial distribution.
@@ -13,6 +14,7 @@ A comprehensive, end-to-end pipeline for fine-tuning Microsoft's Phi-2 language 
 
 - [Project Overview](#project-overview)
 - [Key Features](#key-features)
+- [Trained Model](#trained-model)
 - [Hardware Requirements](#hardware-requirements)
 - [Software Requirements](#software-requirements)
 - [Installation](#installation)
@@ -60,6 +62,37 @@ As a personal project, this was built to:
 | **Hardware Optimization** | Tuned for RTX 5060 Ti + Ryzen 5 5600G |
 | **Interactive Interface** | Built-in chat interface for testing |
 | **Progress Monitoring** | TensorBoard integration and custom logging |
+
+## Trained Model
+
+🎯 **Ready-to-Use Model Available!**
+
+The trained Wikipedia Phi-2 model is available on Hugging Face:
+
+- **🤗 Model**: [iZELX1/llm-wikipedia](https://huggingface.co/iZELX1/llm-wikipedia)
+- **Base Model**: Microsoft Phi-2 (2.7B parameters)
+- **Fine-tuning**: LoRA adapters (16MB) + merged weights (1.8GB)
+- **Training Data**: 100k Wikipedia articles
+- **Performance**: ~14.5 perplexity, BLEU ~0.024, ROUGE-1 ~0.29, ROUGE-L ~0.18
+
+### Quick Usage
+
+```python
+# Load with LoRA (recommended - smaller & efficient)
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel
+
+base_model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2", device_map="auto")
+model = PeftModel.from_pretrained(base_model, "iZELX1/llm-wikipedia")
+tokenizer = AutoTokenizer.from_pretrained("iZELX1/llm-wikipedia")
+
+# Generate Wikipedia-style content
+input_text = "The history of artificial intelligence began with"
+inputs = tokenizer(input_text, return_tensors="pt").to(model.device)
+outputs = model.generate(**inputs, max_new_tokens=100, temperature=0.7)
+result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+print(result)
+```
 
 ## Hardware Requirements
 
@@ -313,9 +346,11 @@ test_prompts = [
 ### Benchmark Results
 | Metric | Value | Interpretation |
 |--------|-------|----------------|
-| Perplexity | 5.2 | Good confidence on test set |
-| BLEU-4 | 0.18 | Reasonable generation quality |
-| ROUGE-L | 0.28 | Decent summarization capability |
+| Perplexity | 14.5 | Moderate confidence on test set |
+| BLEU-4 | 0.024 | Basic generation quality |
+| ROUGE-1 | 0.29 | Reasonable content overlap |
+| ROUGE-2 | 0.085 | Limited phrase-level matching |
+| ROUGE-L | 0.18 | Moderate sequence matching |
 
 ## Performance Benchmarks
 
