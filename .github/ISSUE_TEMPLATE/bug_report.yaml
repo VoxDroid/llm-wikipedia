@@ -1,0 +1,67 @@
+name: Bug Report
+description: Report a bug in the code or repository
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug! Please provide as much detail as possible to help us resolve it.
+  - type: input
+    id: affected-file
+    attributes:
+      label: Affected File or Component
+      description: Which file or component is affected?
+      placeholder: e.g., wikipedia_llm_training.ipynb
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear description of the bug.
+      placeholder: Describe the issue, including what you expected and what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the bug.
+      placeholder: |
+        1. Run the script/notebook
+        2. Execute with specific parameters
+        3. Observe the error...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Your environment details.
+      placeholder: |
+        - OS: [e.g., Windows 11]
+        - Python Version: [e.g., 3.8.10]
+        - Dependencies: [e.g., torch==2.0.0, transformers==4.21.0]
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or Error Messages
+      description: Paste any relevant error messages or logs.
+      placeholder: |
+        ```
+        Traceback (most recent call last):
+          File "...", line X, in <module>
+            ...
+        ```
+    validations:
+      required: false
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other context or screenshots about the bug.
+    validations:
+      required: false
